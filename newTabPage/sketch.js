@@ -1,10 +1,9 @@
 // Code adapted from Basile Pesin
 // http://vertmo.github.io
-
-var blobs = []
-multiplier = 8;
-distanceCoefficient = 400;
-radius = 4;
+let blobs = [];
+let multiplier = 8;
+let distanceCoefficient = 400;
+let radius = 4;
 
 function setup() {
   pixelDensity(1);
@@ -49,8 +48,9 @@ function windowResized() {
 }
 
 chrome.storage.onChanged.addListener(function(changes, nampespace) { 
-  for (var key in changes) { 
-    var storageChange = changes[key];
-    console.log(storageChange)
-  }
+  console.log("change detected in chrome storage; sketch.js");
+  // for (var key in changes) { 
+  //   var storageChange = changes[key];
+  //   console.log(storageChange);
+  // }
 });
