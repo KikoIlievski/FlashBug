@@ -4,6 +4,7 @@ var blobs = [];
 var multiplier = 8;
 var distanceCoefficient = 10;
 var radius = 200;
+var colours = {}
 var red, green, blue;
 
 function setup() {
@@ -18,17 +19,15 @@ function setup() {
       radius)); // creating blobs and pushing them to list, random starting coords for each
   }
   try {
-    red = chrome.storage.sync.get("red"); 
-    green = chrome.storage.sync.get("green");
-    blue = chrome.storage.sync.get("blue");
-  }
-  catch { // if any of the colours are undefined i.e. don't already exist in chrome storage
-    chrome.storage.sync.set({"red":0});
-    red = 0;
-    chrome.storage.sync.set({"green":0});
-    green = 0;
-    chrome.storage.sync.set({"blue":0});
-    blue = 0;
+    chrome.storage.sync.get("red", result=>{
+      colours["red"] = result["red"]
+    });chrome.storage.sync.get("green", result=>{
+      colours["green"] = result["green"]
+    });chrome.storage.sync.get("blue", result=>{
+      colours["blue"] = result["blue"]
+    });
+  } catch { // if any of the colours are undefined i.e. don't already exist in chrome storage
+    console.log("catch hit");
   }
 }
 
@@ -44,8 +43,8 @@ function draw() {
         let d = sqrt((xdif * xdif) + (ydif * ydif));
         sum += distanceCoefficient * blobs[i].r / d;
       }
-      // set(x, y, color(sum, 255-sum, 255));
-      set(x, y, color(sum-(255-red), 0-(255-blue), sum-(blue)));
+
+      set(x, y, color(sum*colours["red"], sum*colours["green"], sum*colours["blue"]));
       
     }
   }
@@ -63,7 +62,6 @@ function windowResized() {
 chrome.storage.onChanged.addListener(function(changes, namespace) { 
   for (var key in changes) { 
     var storageChange = changes[key];
-    console.log(key);
-    console.log(storageChange);
+    colours[key] = storageChange["newValue"];
   }
 });
