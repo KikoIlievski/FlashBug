@@ -1,24 +1,33 @@
-document.getElementById("setRed").addEventListener("click", ()=>{
-    chrome.storage.sync.set({"red":100}, ()=> {{ 
-        console.log("Value of red has been set to 100");
-    }});
-})
+// document.getElementById("getRed").addEventListener("click", function(element) { 
+//     chrome.storage.sync.get("red", function(result){ 
+//         console.log("Value read for red is " + result["red"])
+//     });
+// });
 
-
-document.getElementById("getRed").addEventListener("click", function(element) { 
-    chrome.storage.sync.get("red", function(result){ 
-        console.log("Value read for red is " + result["red"])
-    });
-});
-
-$("#slider").slider( { 
+$(".colourSlider").slider( { 
     min:0,
     max:255
 })
 
-$("#slider").slider({
+var redSlider = $(".red");
+var greenSlider = $(".green");
+var blueSlider = $(".blue");
+
+redSlider.slider({
     change: function(event, ui) { 
-        let value = $("#slider").slider("values", 0);
-        chrome.storage.sync.set({"red":value});
+        value = redSlider.slider("values", 0);
+        chrome.storage.sync.set({"red": value});
+    }
+});
+greenSlider.slider({
+    change: function(event, ui) { 
+        value = greenSlider.slider("values", 0);
+        chrome.storage.sync.set({"green": value});
+    }
+});
+blueSlider.slider({
+    change: function(event, ui) { 
+        value = blueSlider.slider("values", 0);
+        chrome.storage.sync.set({"blue": value});
     }
 });

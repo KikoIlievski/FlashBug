@@ -2,8 +2,9 @@
 // http://vertmo.github.io
 var blobs = [];
 var multiplier = 8;
-var distanceCoefficient = 400;
-var radius = 4;
+var distanceCoefficient = 10;
+var radius = 200;
+var red, green, blue;
 
 function setup() {
   pixelDensity(1);
@@ -16,7 +17,19 @@ function setup() {
       random(0, height), // y start pos
       radius)); // creating blobs and pushing them to list, random starting coords for each
   }
-
+  try {
+    red = chrome.storage.sync.get("red"); 
+    green = chrome.storage.sync.get("green");
+    blue = chrome.storage.sync.get("blue");
+  }
+  catch { // if any of the colours are undefined i.e. don't already exist in chrome storage
+    chrome.storage.sync.set({"red":0});
+    red = 0;
+    chrome.storage.sync.set({"green":0});
+    green = 0;
+    chrome.storage.sync.set({"blue":0});
+    blue = 0;
+  }
 }
 
 function draw() {
@@ -32,7 +45,7 @@ function draw() {
         sum += distanceCoefficient * blobs[i].r / d;
       }
       // set(x, y, color(sum, 255-sum, 255));
-      set(x, y, color(sum, 0, sum));
+      set(x, y, color(sum-(255-red), 0-(255-blue), sum-(blue)));
       
     }
   }
@@ -47,10 +60,10 @@ function windowResized() {
   resizeCanvas(Math.floor(window.innerWidth/multiplier) + 5, Math.floor(window.innerHeight/multiplier) + 5);
 }
 
-chrome.storage.onChanged.addListener(function(changes, nampespace) { 
-  console.log("change detected in chrome storage; sketch.js");
-  // for (var key in changes) { 
-  //   var storageChange = changes[key];
-  //   console.log(storageChange);
-  // }
+chrome.storage.onChanged.addListener(function(changes, namespace) { 
+  for (var key in changes) { 
+    var storageChange = changes[key];
+    console.log(key);
+    console.log(storageChange);
+  }
 });
