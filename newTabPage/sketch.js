@@ -1,9 +1,9 @@
 // Code adapted from Basile Pesin
 // http://vertmo.github.io
-let blobs = [];
-let multiplier = 8;
-let distanceCoefficient = 400;
-let radius = 4;
+var blobs = [];
+var multiplier = 8;
+var distanceCoefficient = 400;
+var radius = 4;
 
 function setup() {
   pixelDensity(1);
