@@ -9,16 +9,24 @@
         body{
             width:400px;
             height:300px;
+            background-color: #2C2F33;
+            color: white;
+            padding-left: 20px;
+            padding-right: 20px;
         }
         div{
             display:flex;
-            justify-content: center;
         }
-        div .container {
-            padding-bottom:10px;
+        div .sliderContainer {
+            padding-bottom:0px; 
+            flex-direction: row;
+            align-items: center;
         }
         .colourSlider { 
-            flex-grow: 1;
+            flex-basis:80%
+        }
+        .sliderLabel{ 
+            padding-left: 10px;
         }
     </style>
     <!-- <script type="text/javascript" src="../libs/p5.min.js"></script> -->
@@ -27,24 +35,28 @@
 
 </head>
 <body>
-    <div id="title">
+    <div id="title" style="justify-content: center;">
         <h1>
             Kiko's Metaball extension!
         </h1>
     </div>
     <div id="colourSlidersContainer" style="flex-direction: column;">
-        <div id="redContainer" class="container">
+        <div id="redContainer" class="sliderContainer">
             <div id="slider" class="ui-slider red colourSlider"></div>
+            <p class="sliderLabel">Red</p>
         </div>
 
-        <div id="greenContainer" class="container">
+        <div id="greenContainer" class="sliderContainer">
             <div id="slider" class="ui-slider green colourSlider"></div>
+            <p class="sliderLabel">Green</p>
         </div>
 
-        <div id="blueContainer" class="container">
+        <div id="blueContainer" class="sliderContainer">
             <div id="slider" class="ui-slider blue colourSlider"></div>
+            <p class="sliderLabel">Blue</p>
         </div>
     </div>
+    <div id="extraOptions" class="container"></div>
     <script src="popup.js"></script>
 </body>
 </html>

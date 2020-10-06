@@ -4,10 +4,6 @@
     "version": "1.0.0", 
     "description": "New tab override with cool customisable background of isosurface metaballs.",
     "permissions": ["storage", "activeTab"],
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": false
-      },
     "browser_action":{
         "default_popup":"popup/popup.html"
     },
