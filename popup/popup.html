@@ -14,6 +14,12 @@
             display:flex;
             justify-content: center;
         }
+        div .container {
+            padding-bottom:10px;
+        }
+        .colourSlider { 
+            flex-grow:1;
+        }
     </style>
     <!-- <script type="text/javascript" src="../libs/p5.min.js"></script> -->
     <script type="text/javascript" src="../libs/jquery.min.js"></script>
@@ -27,9 +33,17 @@
         </h1>
     </div>
     <div id="colourSlidersContainer" style="flex-direction: column;">
-        <div id="slider" class="ui-slider red colourSlider"></div>
-        <div id="slider" class="ui-slider green colourSlider"></div>
-        <div id="slider" class="ui-slider blue colourSlider"></div>
+        <div id="redContainer" class="container">
+            <div id="slider" class="ui-slider red colourSlider"></div>
+        </div>
+
+        <div id="greenContainer" class="container">
+            <div id="slider" class="ui-slider green colourSlider"></div>
+        </div>
+
+        <div id="blueContainer" class="container">
+            <div id="slider" class="ui-slider blue colourSlider"></div>
+        </div>
     </div>
     <script src="popup.js"></script>
 </body>
