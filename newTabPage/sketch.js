@@ -5,32 +5,50 @@ var multiplier = 8;
 var distanceCoefficient = 10;
 var radius = 200;
 var colours = {}
-var red, green, blue;
+var red, green, blue, numBlobs; // values that will be determined by reading from google storage
 
 function setup() {
   pixelDensity(1);
   createCanvas(Math.floor(window.innerWidth/multiplier) + 5, Math.floor(window.innerHeight/multiplier) + 5);
   frameRate(60);
   colorMode(RGB);
-  for (i = 0; i < 4; i++) {
-    blobs.push(new Blob(
-      random(0, width), // x start pos 
-      random(0, height), // y start pos
-      radius)); // creating blobs and pushing them to list, random starting coords for each
-  }
-  try {
-    chrome.storage.sync.get("red", result=>{
-      colours["red"] = result["red"]
-    });chrome.storage.sync.get("green", result=>{
-      colours["green"] = result["green"]
-    });chrome.storage.sync.get("blue", result=>{
-      colours["blue"] = result["blue"]
-    });
-  } catch { // if any of the colours are undefined i.e. don't already exist in chrome storage
-    console.log("catch hit");
-  }
+  chrome.storage.sync.get("numBlobs", result=>{ 
+    numBlobs = result["numBlobs"] ? result["numBlobs"] : 4; 
+    for (i = 0; i < numBlobs; i++) {
+      blobs.push(new Blob(
+        random(0, width), // x start pos 
+        random(0, height), // y start pos
+        radius)); // creating blobs and pushing them to list, random starting coords for each
+    }
+  });
+  // Setting default values for circles if storage empty (first time installation), or saved prev values and setting those
+  chrome.storage.sync.get("red", result=>{
+    if (!result["red"] && result["red"] != 0) { 
+      chrome.storage.sync.set({"red":0})
+      colours["red"] = 0;
+    }else { 
+      colours["red"] = result["red"];
+    }
+  });
+  chrome.storage.sync.get("green", result=>{
+    if (!result["green"] && result["green"] != 0) { 
+      chrome.storage.sync.set({"green":1})
+      colours["green"] = 1;
+    } else { 
+      colours["green"] = result["green"];
+    }
+  });
+  chrome.storage.sync.get("blue", result=>{
+    if (!result["blue"] && result["blue"] != 0) { 
+      chrome.storage.sync.set({"blue":1})
+      colours["blue"] = 1;
+    } else { 
+      colours["blue"] = result["blue"];
+    }
+  });
 }
-
+  
+    
 function draw() {
   background(50);
   loadPixels();
