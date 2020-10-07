@@ -3,15 +3,24 @@
 var blobs = [];
 var multiplier = 8; // contstant variable that shrinks the canvas to the percentage zoom in metaballs.html
 // var distanceCoefficient = 20;
-var radius = 50;
+// var radius = 50;
 var colours = {}
-var red, green, blue, numBlobs, distanceCoefficient; // values that will be determined by reading from google storage
+var red, green, blue, numBlobs, distanceCoefficient, radius; // values that will be determined by reading from google storage
 
 function setup() {
 	pixelDensity(1);
 	createCanvas(Math.floor(window.innerWidth/multiplier) + 5, Math.floor(window.innerHeight/multiplier) + 5);
 	frameRate(60);
 	colorMode(RGB);
+	// either getting user custom radius or setting to default value
+	chrome.storage.sync.get("radius", result=>{ 
+		if (!result["radius"] && result["radius"] != 0) { 
+			chrome.storage.sync.set({"radius":50});
+			radius = 50;
+		} else { 
+			radius = result["radius"];
+		}
+	});
 	chrome.storage.sync.get("numBlobs", result=>{ // changing 
 		numBlobs = result["numBlobs"] ? result["numBlobs"] : 4; //look at removing this step 
 		for (i = 0; i < numBlobs; i++) {
@@ -108,6 +117,12 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 				for (let i = 0; i < diff; i++) { 
 					blobs.pop();
 				}
+			}
+		}
+		if (key == "radius") { 
+			for (let i = 0; i < blobs.length; i++){
+				 console.log(blobs[i].r);
+				 blobs[i].r = radius;
 			}
 		}
 	}

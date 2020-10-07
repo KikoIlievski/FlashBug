@@ -3,6 +3,7 @@ var redSlider = $(".red");
 var greenSlider = $(".green");
 var blueSlider = $(".blue");
 var coefficientSlider = $(".coefficient");
+var radiusSlider = $(".radius");
 var numBlobsInput = document.getElementById("numBlobsInput");
 
 // setting values of sliders to value in storage (ie remembering old settings)
@@ -26,6 +27,11 @@ coefficientSlider.slider({
         coefficientSlider.slider("value", result["coefficient"])
     })
 })
+radiusSlider.slider({
+    create:chrome.storage.sync.get("radius", result=>{
+        radiusSlider.slider("value", result["radius"])
+    })
+})
 
 // setting the properties for all the sliders (max values, min values, step)
 $(".colourSlider").slider({ 
@@ -37,6 +43,12 @@ $(".coefficient").slider({
     min: 1,
     max: 40, 
     step: .1
+});
+
+$(".radius").slider({ 
+    min: 1,
+    max: 200, 
+    step: 1
 });
 
 // handling changes in sliders by user. This is so programamtic changes do not trigger changes in storage
@@ -72,6 +84,14 @@ coefficientSlider.slider({
         }
     }
 });
+radiusSlider.slider({ 
+    change: function(event) { 
+        if (event.originalEvent){
+            let value = radiusSlider.slider("values", 0);
+            chrome.storage.sync.set({"radius":value});
+        }
+    }
+});
 
 // initialising the starting value for the numBlobs
 chrome.storage.sync.get("numBlobs", result=>{ 
@@ -85,5 +105,3 @@ chrome.storage.sync.get("numBlobs", result=>{
 numBlobsInput.addEventListener("input", event=>{ 
     chrome.storage.sync.set({"numBlobs":numBlobsInput.value});
 });
-
-// writing to chrmoe storage when coefficient slider is changed  
