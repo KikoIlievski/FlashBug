@@ -2,37 +2,48 @@
 var redSlider = $(".red");
 var greenSlider = $(".green");
 var blueSlider = $(".blue");
+var coefficientSlider = $(".coefficient");
 var numBlobsInput = document.getElementById("numBlobsInput");
 
 // setting values of sliders to value in storage (ie remembering old settings)
 redSlider.slider({
     create: chrome.storage.sync.get("red", result=>{
-            redSlider.slider("value", result["red"]);
+        redSlider.slider("value", result["red"]);
     })
 });
 greenSlider.slider({
     create: chrome.storage.sync.get("green", result=>{
-            greenSlider.slider("value", result["green"]);
+        greenSlider.slider("value", result["green"]);
     })
 });
 blueSlider.slider({
     create: chrome.storage.sync.get("blue", result=>{
-            blueSlider.slider("value", result["blue"]);
+        blueSlider.slider("value", result["blue"]);
     })
 });
+coefficientSlider.slider({
+    create:chrome.storage.sync.get("coefficient", result=>{
+        coefficientSlider.slider("value", result["coefficient"])
+    })
+})
 
 // setting the properties for all the sliders (max values, min values, step)
-$(".colourSlider").slider( { 
+$(".colourSlider").slider({ 
     min:0,
     max:1,
     step:0.01
 })
+$(".coefficient").slider({ 
+    min: 1,
+    max: 40, 
+    step: .1
+});
 
-// handling changes in sliders by user
+// handling changes in sliders by user. This is so programamtic changes do not trigger changes in storage
 redSlider.slider({
     change: function(event) { 
         if (event.originalEvent){
-            value = redSlider.slider("values", 0);
+            let value = redSlider.slider("values", 0);
             chrome.storage.sync.set({"red": value});
         }
     }
@@ -40,7 +51,7 @@ redSlider.slider({
 greenSlider.slider({
     change: function(event) { 
         if (event.originalEvent){
-            value = greenSlider.slider("values", 0);
+            let value = greenSlider.slider("values", 0);
             chrome.storage.sync.set({"green": value});
         }
     }
@@ -48,8 +59,16 @@ greenSlider.slider({
 blueSlider.slider({
     change: function(event) { 
         if (event.originalEvent){
-            value = blueSlider.slider("values", 0);
+            let value = blueSlider.slider("values", 0);
             chrome.storage.sync.set({"blue": value});
+        }
+    }
+});
+coefficientSlider.slider({ 
+    change: function(event) { 
+        if (event.originalEvent){
+            let value = coefficientSlider.slider("values", 0);
+            chrome.storage.sync.set({"coefficient":value});
         }
     }
 });
@@ -66,3 +85,5 @@ chrome.storage.sync.get("numBlobs", result=>{
 numBlobsInput.addEventListener("input", event=>{ 
     chrome.storage.sync.set({"numBlobs":numBlobsInput.value});
 });
+
+// writing to chrmoe storage when coefficient slider is changed  

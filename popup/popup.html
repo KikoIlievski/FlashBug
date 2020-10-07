@@ -30,11 +30,12 @@
         }
         .optionsContainer { 
             flex-direction: row;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
         }
-        .vertContainter { 
+        .vertContainer { 
             flex-direction: column;
+            align-content: space-between;            
         }
     </style>
     <!-- <script type="text/javascript" src="../libs/p5.min.js"></script> -->
@@ -64,13 +65,18 @@
             <p class="sliderLabel">Blue</p>
         </div>
     </div>
-    <div class="subtitle">
-        <h2>Extra options (may update on next tab open)</h2>
+    <div class="subtitle" style="justify-content: center;">
+        <h2>Extra options:</h2>
     </div>
     <div id="extraOptions" class="optionsContainer">
-        <div id="numBlobsContainer" class="vertContainter">
+        <div id="numBlobsContainer" class="vertContainer">
             <label for="numBlobsInput">Num. blobs:</label>
-            <input type="number" name="numBlobsInput" id="numBlobsInput" min="1" max="99" value="5">
+            <input type="number" name="numBlobsInput" id="numBlobsInput" min="1" max="200" value="5">
+        </div>
+        
+        <div id="distanceCoefficientContainer" class="vertContainer">
+            <p>Distance Coefficient:</p>
+            <div id="slider" class="ui-slider coefficient"></div>
         </div>
     </div>
     <script src="popup.js"></script>
