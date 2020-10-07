@@ -121,8 +121,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 		}
 		if (key == "radius") { 
 			for (let i = 0; i < blobs.length; i++){
-				 console.log(blobs[i].r);
-				 blobs[i].r = radius;
+				 blobs[i].r = storageChange["newValue"];
 			}
 		}
 	}
