@@ -17,7 +17,7 @@
         div{
             display:flex;
         }
-        div .sliderContainer {
+        .sliderContainer {
             padding-bottom:0px; 
             flex-direction: row;
             align-items: center;
@@ -28,6 +28,14 @@
         .sliderLabel{ 
             padding-left: 10px;
         }
+        .optionsContainer { 
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        .vertContainter { 
+            flex-direction: column;
+        }
     </style>
     <!-- <script type="text/javascript" src="../libs/p5.min.js"></script> -->
     <script type="text/javascript" src="../libs/jquery.min.js"></script>
@@ -35,7 +43,7 @@
 
 </head>
 <body>
-    <div id="title" style="justify-content: center;">
+    <div class="title" style="justify-content: center;">
         <h1>
             Kiko's Metaball extension!
         </h1>
@@ -56,8 +64,14 @@
             <p class="sliderLabel">Blue</p>
         </div>
     </div>
-    <div id="extraOptions" class="container">
-        
+    <div class="subtitle">
+        <h2>Extra options (may update on next tab open)</h2>
+    </div>
+    <div id="extraOptions" class="optionsContainer">
+        <div id="numBlobsContainer" class="vertContainter">
+            <label for="numBlobsInput">Num. blobs:</label>
+            <input type="number" name="numBlobsInput" id="numBlobsInput" min="1" max="99" value="5">
+        </div>
     </div>
     <script src="popup.js"></script>
 </body>
