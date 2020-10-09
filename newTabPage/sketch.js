@@ -15,8 +15,8 @@ function setup() {
 	// either getting user custom radius or setting to default value
 	chrome.storage.sync.get("radius", result=>{ 
 		if (!result["radius"] && result["radius"] != 0) { 
-			chrome.storage.sync.set({"radius":50});
-			radius = 50;
+			chrome.storage.sync.set({"radius":100});
+			radius = 100;
 		} else { 
 			radius = result["radius"];
 		}
