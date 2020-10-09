@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Kiko's Metaballs!", 
     "version": "1.0", 
-    "description": "Replaces every new tab opened with customisable 2D isosurface moving background. Customisable by clicking extension in the top-right toolbar",
+    "description": "Replaces New Tabs with a customisable 2D isosurface moving background. Customisable by clicking extension in the top-right toolbar",
     "permissions": ["storage", "activeTab"],
     "browser_action":{
         "default_popup":"popup/popup.html"
