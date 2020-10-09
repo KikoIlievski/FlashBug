@@ -2,12 +2,17 @@
     "manifest_version": 2,
     "name": "Kiko's Metaballs!", 
     "version": "1.0.0", 
-    "description": "New tab override with cool customisable background of isosurface metaballs.",
+    "description": "Replaces every new tab opened with customisable 2D isosurface moving background. Customisable by clicking extension in the top-right toolbar",
     "permissions": ["storage", "activeTab"],
     "browser_action":{
         "default_popup":"popup/popup.html"
     },
     "chrome_url_overrides": { 
         "newtab":"newTabPage/metaballs.html"
+    },
+    "icons": { 
+        "16":"Icons/Meta_16.png",
+        "48":"Icons/Meta_48.png", 
+        "128":"Icons/Meta_128.png" 
     }
 }
