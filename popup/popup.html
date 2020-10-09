@@ -55,8 +55,6 @@
         .radius .coefficient{ 
             flex-basis: 80%;
         }
-        
-
     </style>
     <!-- <script type="text/javascript" src="../libs/p5.min.js"></script> -->
     <script type="text/javascript" src="../libs/jquery.min.js"></script>
@@ -90,19 +88,21 @@
     </div>
     <div id="extraOptions" class="optionsContainer">
 
-        <div class="numBlobsContainer">
+        <div class="numBlobsContainer" title="Number of blobs moving around the screen. At high numbers distance coefficient and radius recommended to be reduced">
             <label for="numBlobsInput">Num. blobs:</label>
             <input type="number" name="numBlobsInput" id="numBlobsInput" min="1" max="200" value="5">
         </div>
         
-        <div class="extraSlidersContainer">
+        <div class="extraSlidersContainer" title="Distance before colour fades from center of circles">
             <p>Distance Coefficient:</p>
-            <div id="slider" class="ui-slider coefficient"></div>
+            <div id="slider" class="ui-slider coefficient">
+            </div>
         </div>
 
-        <div  class="extraSlidersContainer">
+        <div class="extraSlidersContainer" title="The radius of the moving circles. Similar effect to changing distance coefficient">
             <p>Radius:</p>
-            <div id="slider" class="ui-slider radius"></div>
+            <div id="slider" class="ui-slider radius">
+            </div>
         </div>
     </div>
     <script src="popup.js"></script>
