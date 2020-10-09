@@ -44,7 +44,6 @@ $(".coefficient").slider({
     max: 40, 
     step: .1
 });
-
 $(".radius").slider({ 
     min: 1,
     max: 200, 
@@ -101,6 +100,7 @@ chrome.storage.sync.get("numBlobs", result=>{
         numBlobsInput.value = result["numBlobs"];
     }
 });
+
 // writing to chrome storage when input box is changed
 numBlobsInput.addEventListener("input", event=>{ 
     chrome.storage.sync.set({"numBlobs":numBlobsInput.value});

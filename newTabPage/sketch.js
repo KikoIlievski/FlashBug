@@ -21,8 +21,13 @@ function setup() {
 			radius = result["radius"];
 		}
 	});
-	chrome.storage.sync.get("numBlobs", result=>{ // changing 
-		numBlobs = result["numBlobs"] ? result["numBlobs"] : 4; //look at removing this step 
+	chrome.storage.sync.get("numBlobs", result=>{ // setting default value for numBlobs, or reading old value if exists
+		if (result["numBlobs"] > 0) { 
+			numBlobs = result["numBlobs"];
+		} else { 
+			chrome.storage.sync.set({"numBlobs":5})
+			numBlobs = 5;
+		}
 		for (i = 0; i < numBlobs; i++) {
 			blobs.push(new Blob(
 				random(0, width), // x start pos 
@@ -120,8 +125,9 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 			}
 		}
 		if (key == "radius") { 
+			radius = storageChange["newValue"]
 			for (let i = 0; i < blobs.length; i++){
-				 blobs[i].r = storageChange["newValue"];
+				 blobs[i].r = radius;
 			}
 		}
 	}

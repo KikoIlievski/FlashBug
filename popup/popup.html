@@ -17,26 +17,46 @@
         div{
             display:flex;
         }
+        p { 
+            text-align: center;
+        }
+        #colourSlidersContainer { 
+            flex-direction: column;
+        }
+        #numBlobsInput {
+            align-self: flex-end;
+
+        }
         .sliderContainer {
-            padding-bottom:0px; 
+            padding-bottom: 0px; 
             flex-direction: row;
             align-items: center;
         }
-        .colourSlider { 
-            flex-basis:80%
+        .colourSlider{ 
+            flex-basis: 80%
         }
         .sliderLabel{ 
             padding-left: 10px;
         }
         .optionsContainer { 
             flex-direction: row;
-            justify-content: space-evenly;
-            align-items: center;
         }
-        .vertContainer { 
+        .numBlobsContainer{ 
+            flex-flow: column nowrap;
+            justify-content: flex-end;
+            padding-right: 10px;
+        }
+        .extraSlidersContainer { 
             flex-direction: column;
-            align-content: space-between;            
+            flex-basis: 45%;
+            padding-left: 5px;
+            padding-right: 5px;
         }
+        .radius .coefficient{ 
+            flex-basis: 80%;
+        }
+        
+
     </style>
     <!-- <script type="text/javascript" src="../libs/p5.min.js"></script> -->
     <script type="text/javascript" src="../libs/jquery.min.js"></script>
@@ -49,7 +69,7 @@
             Kiko's Metaball extension!
         </h1>
     </div>
-    <div id="colourSlidersContainer" style="flex-direction: column;">
+    <div id="colourSlidersContainer">
         <div id="redContainer" class="sliderContainer">
             <div id="slider" class="ui-slider red colourSlider"></div>
             <p class="sliderLabel">Red</p>
@@ -69,17 +89,18 @@
         <h2>Extra options:</h2>
     </div>
     <div id="extraOptions" class="optionsContainer">
-        <div id="numBlobsContainer" class="vertContainer">
+
+        <div class="numBlobsContainer">
             <label for="numBlobsInput">Num. blobs:</label>
             <input type="number" name="numBlobsInput" id="numBlobsInput" min="1" max="200" value="5">
         </div>
         
-        <div id="distanceCoefficientContainer" class="vertContainer">
+        <div class="extraSlidersContainer">
             <p>Distance Coefficient:</p>
             <div id="slider" class="ui-slider coefficient"></div>
         </div>
 
-        <div id="radiusContainer" class="vertContainer">
+        <div  class="extraSlidersContainer">
             <p>Radius:</p>
             <div id="slider" class="ui-slider radius"></div>
         </div>
