@@ -1,3 +1,5 @@
 # Kiko's Metaballs
 <h2>Description:</h2>
-This projects is one of my first proper GitHub projects! It is a chrome extension which is and override which replaces Chrome's New Tab page with a customisable 2D isosurface animation. 
+This projects is one of my first proper GitHub projects! It's a chrome extension which overrides Chrome's New Tab page with a customisable 2D isosurface's.
+<h2>Inspiration and credit:</h2>
+Absolutely massive love to [The Coding Train](https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw) and [Basile Pesin](https://github.com/Vertmo). The original cade made using java by The Coding Train can be seen [here](https://thecodingtrain.com/CodingChallenges/028-metaballs.html). This program was made in Javascript using p5.js by Basile Pesin, and the foundation of the code used in my extension is adapted from that. The Coding Train has amazing [series](https://www.youtube.com/playlist?list=PLRqwX-V7Uu6bL9VOMT65ahNEri9uqLWfS) on making Chrome Extensions, and very instructively teaches use of p5.js throughout his coding challenge series (though he has p5.js tutorials as well!). To any programmer which has a liking for maths and visual programs, I can not urge you enough to check out The Coding Train, he is an amazing teacher.
