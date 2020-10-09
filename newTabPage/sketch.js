@@ -47,7 +47,7 @@ function setup() {
 	chrome.storage.sync.get("green", result=>{
 		if (!result["green"] && result["green"] != 0) { 
 			chrome.storage.sync.set({"green":1});
-			colours["green"] = 1;
+			colours["green"] = .75;
 		} else { 
 			colours["green"] = result["green"];
 		}
