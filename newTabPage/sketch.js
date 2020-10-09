@@ -1,7 +1,7 @@
 // Code adapted from Basile Pesin
 // http://vertmo.github.io
 var blobs = [];
-var multiplier = 8; // contstant variable that shrinks the canvas to the percentage zoom in metaballs.html
+const multiplier = 8; // contstant variable that shrinks the canvas to the percentage zoom in metaballs.html
 // var distanceCoefficient = 20;
 // var radius = 50;
 var colours = {}
