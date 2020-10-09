@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "Kiko's Metaballs!", 
+    "name": "FlashBug!", 
     "version": "1.0", 
     "description": "Replaces New Tabs with a customisable 2D isosurface moving background. Customisable by clicking extension in the top-right toolbar",
     "permissions": ["storage"],
