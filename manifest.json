@@ -11,8 +11,8 @@
         "newtab":"newTabPage/metaballs.html"
     },
     "icons": { 
-        "16":"Icons/MetaRed_16.png",
-        "48":"Icons/MetaRed_48.png", 
-        "128":"Icons/MetaRed_128.png" 
+        "16":"Icons/MetaBlue_16.png",
+        "48":"Icons/MetaBlue_48.png", 
+        "128":"Icons/MetaBlue_128.png" 
     }
 }
