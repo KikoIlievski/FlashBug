@@ -103,5 +103,7 @@ chrome.storage.sync.get("numBlobs", result=>{
 
 // writing to chrome storage when input box is changed
 numBlobsInput.addEventListener("input", event=>{ 
-    chrome.storage.sync.set({"numBlobs":numBlobsInput.value});
+    if (numBlobsInput.value > 0){ 
+        chrome.storage.sync.set({"numBlobs":numBlobsInput.value});
+    }
 });
