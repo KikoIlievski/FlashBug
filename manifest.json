@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "FlashBug!", 
+    "name": "Flashbug!", 
     "version": "1.0", 
     "description": "Replaces New Tabs with a customisable 60 fps, 2D isosurface moving background.",
     "permissions": ["storage"],
