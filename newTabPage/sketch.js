@@ -2,8 +2,6 @@
 // http://vertmo.github.io
 var blobs = [];
 const multiplier = 8; // contstant variable that shrinks the canvas to the percentage zoom in metaballs.html
-// var distanceCoefficient = 20;
-// var radius = 50;
 var colours = {}
 var red, green, blue, numBlobs, distanceCoefficient, radius; // values that will be determined by reading from google storage
 
