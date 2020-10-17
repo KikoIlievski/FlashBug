@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "FlashBug!", 
     "version": "1.0", 
-    "description": "Replaces New Tabs with a customisable 60 fps, 2D isosurface moving background.",
+    "description": "Replaces New Tabs with a customizable 60 fps moving background.",
     "permissions": ["storage"],
     "browser_action":{
         "default_popup":"popup/popup.html"
