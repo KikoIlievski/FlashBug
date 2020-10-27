@@ -102,8 +102,19 @@ chrome.storage.sync.get("numBlobs", result=>{
 });
 
 // writing to chrome storage when input box is changed
-numBlobsInput.addEventListener("input", event=>{ 
-    if (numBlobsInput.value > 0){ 
+numBlobsInput.addEventListener("input", event=>{
+    if (numBlobsInput.value > 100) { 
+        chrome.storage.sync.get("numBlobs", result =>{ 
+            numBlobsInput.value = result["numBlobs"]
+        });
+    } else if (numBlobsInput.value > 0){ 
         chrome.storage.sync.set({"numBlobs":numBlobsInput.value});
     }
+});
+numBlobsInput.addEventListener("focusout", event =>{ 
+    if (numBlobsInput.value < 1 || isNaN(numBlobsInput.value)) { 
+        chrome.storage.sync.get("numBlobs", result =>{ 
+            numBlobsInput.value = result["numBlobs"];
+        });
+    } 
 });

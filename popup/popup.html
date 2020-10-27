@@ -82,14 +82,18 @@
             <p class="sliderLabel">Blue</p>
         </div>
     </div>
-    <div class="subtitle" style="justify-content: center;">
+    <div class="subtitle" style="justify-content: space-between; align-items: center;">
         <h2>Extra options:</h2>
+        <!-- <div id="checkboxContainer" style="padding-right: 20px;">
+            <input type="checkbox" name="spectrumCycle" id="spectrumCycle">
+            <label for="spectrumCycle">Spectrum Cycle</label>
+        </div> -->
     </div>
     <div id="extraOptions" class="optionsContainer">
 
         <div class="numBlobsContainer" title="Number of blobs moving around the screen. At high numbers distance coefficient and radius recommended to be reduced">
-            <label for="numBlobsInput">Num. blobs:</label>
-            <input type="number" name="numBlobsInput" id="numBlobsInput" min="1" max="200" value="5">
+            <label for="numBlobsInput">Num. bugs <br> (0-100):</label>
+            <input type="number" name="numBlobsInput" id="numBlobsInput" min="1" max="100" value="5">
         </div>
         
         <div class="extraSlidersContainer" title="Distance center of circles before the color starts fading">

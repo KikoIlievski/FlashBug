@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "FlashBug!", 
-    "version": "1.0", 
+    "version": "1.2", 
     "description": "Replaces New Tabs with a customizable 60 fps moving background.",
     "permissions": ["storage"],
     "browser_action":{
