@@ -1,4 +1,4 @@
-# Kiko's Metaballs
+# FlashBug!
 # Description: 
 This projects is one of my first proper GitHub projects! It's a chrome extension which overrides Chrome's New Tab page with moving customisable 2D isosurfaces.
 ## Inspiration and credit:
