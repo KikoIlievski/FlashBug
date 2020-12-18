@@ -1,11 +1,15 @@
 // Code adapted from Basile Pesin
 // http://vertmo.github.io
+
 var blobs = [];
 const multiplier = 8; // contstant variable that shrinks the canvas to the percentage zoom in metaballs.html
-var colours = {}
+var colours = {};
+var prev, curr, next, temp;
 var red, green, blue, numBlobs, distanceCoefficient, radius; // values that will be determined by reading from google storage
+var spectrumToggle = false; 
 
 function setup() {
+	// setting up cyclic doubly linked list of colour values for spectrum cycling
 	pixelDensity(1);
 	createCanvas(Math.floor(window.innerWidth/multiplier) + 5, Math.floor(window.innerHeight/multiplier) + 5);
 	frameRate(60);
@@ -33,7 +37,80 @@ function setup() {
 				radius)); // creating blobs and pushing them to list, random starting coords for each
 		}
 	});
-	// either getting old values for colour, or setting to default upon first time installation
+	// getting old value for spectrum toggle or defaulting to false
+	chrome.storage.sync.get("spectrumCycling", result => { 
+		if (result["spectrumCycling"]) { // If tickbox true 
+			spectrumToggle = true;
+			setAllColours(true);
+			console.log("ticbox true");
+			console.log(spectrumToggle)
+		} else { 
+			spectrumToggle = false;
+			setAllColours(); 
+		}
+	});
+	// either getting user custom distance or setting to default upon first time installation
+	chrome.storage.sync.get("coefficient", result=>{ 
+		if (!result["coefficient"] && result["coefficient"] != 0) { 
+			chrome.storage.sync.set({"coefficient":20});
+			distanceCoefficient = 20;
+		} else { 
+			distanceCoefficient = result["coefficient"];
+		}
+	});
+	
+}
+function cycle(p, c, n) { 
+	if (colours[n] >= 1) { 
+		temp = c;
+		c = n; 
+		n = p; 
+		p = temp;
+		prev = p; curr = c; next = n;
+	} 
+	if (colours[p] > 0) { 
+		colours[p] = Math.round((colours[p]-.01)*100)/100;
+	} else if (colours[p] <= 0 && colours[n] < 1) { 
+		colours[n] = Math.round((colours[n]+.01)*100)/100; 
+	}
+}
+
+function draw() {
+	background(50);
+	loadPixels();
+	if (spectrumToggle && frameCount % 10 == 0) {
+		cycle(prev, curr, next);
+	}; 
+	for (x = 0; x < width; x++) {
+		for (y = 0; y < height; y++) {
+			let sum = 0;
+			for (i = 0; i < blobs.length; i++) {
+				let xdif = x - blobs[i].x;
+				let ydif = y - blobs[i].y;
+				let d = sqrt((xdif * xdif) + (ydif * ydif));
+				sum += distanceCoefficient * blobs[i].r / d;
+			}
+			set(x, y, color(sum*colours["red"], sum*colours["green"], sum*colours["blue"]));
+		}
+	}
+	updatePixels();
+	
+	for (i = 0; i < blobs.length; i++) {
+		blobs[i].update();
+	}
+}
+	
+function windowResized() {
+	resizeCanvas(Math.floor(window.innerWidth/multiplier) + 5, Math.floor(window.innerHeight/multiplier) + 5);
+}
+
+function setAllColours(beginning = false) { 	// either getting old values for colour, or setting to default upon first time installation
+	if (beginning) { 
+		colours["red"] = 0;
+		colours["green"] = 0.75;
+		colours["blue"] = 1;
+		return;
+	}
 	chrome.storage.sync.get("red", result=>{
 		if (!result["red"] && result["red"] != 0) { 
 			chrome.storage.sync.set({"red":0});
@@ -58,44 +135,8 @@ function setup() {
 			colours["blue"] = result["blue"];
 		}
 	});
-	// either getting user custom distance or setting to default upon first time installation
-	chrome.storage.sync.get("coefficient", result=>{ 
-		if (!result["coefficient"] && result["coefficient"] != 0) { 
-			chrome.storage.sync.set({"coefficient":20});
-			distanceCoefficient = 20;
-		} else { 
-			distanceCoefficient = result["coefficient"];
-		}
-	});
-}
+};
 
-function draw() {
-	background(50);
-	loadPixels();
-	for (x = 0; x < width; x++) {
-		for (y = 0; y < height; y++) {
-			let sum = 0;
-			for (i = 0; i < blobs.length; i++) {
-				let xdif = x - blobs[i].x;
-				let ydif = y - blobs[i].y;
-				let d = sqrt((xdif * xdif) + (ydif * ydif));
-				sum += distanceCoefficient * blobs[i].r / d;
-			}
-			set(x, y, color(sum*colours["red"], sum*colours["green"], sum*colours["blue"]));
-			
-		}
-	}
-	updatePixels();
-	
-	for (i = 0; i < blobs.length; i++) {
-		blobs[i].update();
-	}
-}
-	
-function windowResized() {
-	resizeCanvas(Math.floor(window.innerWidth/multiplier) + 5, Math.floor(window.innerHeight/multiplier) + 5);
-}
-	
 chrome.storage.onChanged.addListener(function(changes, namespace) { 
 	for (var key in changes) {
 		var storageChange = changes[key];
@@ -105,7 +146,20 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 		if (key == "coefficient") { //case distance coefficient is changed
 			distanceCoefficient = storageChange["newValue"];
 		}
+		if (key == "spectrumCycling") { 
+			if (storageChange["newValue"]) {
+				spectrumToggle = true;
+				setAllColours(true);
+				curr = "blue";
+				prev = "green";
+				next = "red";
+			} else if (!storageChange["newValue"]) { 
+				spectrumToggle = false;
+				setAllColours();
+			}
+		}
 		if (key == "numBlobs") { //case num. blobs is changed
+			console.log("Yeet");
 			let diff = Math.abs(blobs.length - storageChange["newValue"]); 
 			if (diff == 0){
 				break

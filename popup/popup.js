@@ -5,6 +5,7 @@ var blueSlider = $(".blue");
 var coefficientSlider = $(".coefficient");
 var radiusSlider = $(".radius");
 var numBlobsInput = document.getElementById("numBlobsInput");
+var spectrumToggle = document.getElementById("spectrumCycle");
 
 // setting values of sliders to value in storage (ie remembering old settings)
 redSlider.slider({
@@ -92,6 +93,18 @@ radiusSlider.slider({
     }
 });
 
+
+//handling changes in the spectrumToggle by user
+spectrumToggle.addEventListener("change", event => { 
+    // if (event.originalEvent) { 
+        if (spectrumToggle.checked) {
+            chrome.storage.sync.set({"spectrumCycling":true});
+        } else { 
+            chrome.storage.sync.set({"spectrumCycling":false});
+        }
+    // }
+});
+
 // initialising the starting value for the numBlobs
 chrome.storage.sync.get("numBlobs", result=>{ 
     if (!result["numBlobs"]){ 
@@ -101,15 +114,26 @@ chrome.storage.sync.get("numBlobs", result=>{
     }
 });
 
+
+// initialising the starting value for spectrum cycling
+chrome.storage.sync.get("spectrumCycling", result => { 
+    if (!result["spectrumCycling"]) { 
+        chrome.storage.sync.set({"spectrumCycling":false})
+        spectrumToggle.checked = false;
+    } else if (result["spectrumCycling"]) { 
+        spectrumToggle.checked = true;
+    }
+});
+
 // writing to chrome storage when input box is changed
 numBlobsInput.addEventListener("input", event=>{
-    if (numBlobsInput.value > 100) { 
-        chrome.storage.sync.get("numBlobs", result =>{ 
-            numBlobsInput.value = result["numBlobs"]
-        });
-    } else if (numBlobsInput.value > 0){ 
-        chrome.storage.sync.set({"numBlobs":numBlobsInput.value});
-    }
+        if (numBlobsInput.value > 100) { 
+            chrome.storage.sync.get("numBlobs", result =>{ 
+                numBlobsInput.value = result["numBlobs"]
+            });
+        } else if (numBlobsInput.value > 0){ 
+            chrome.storage.sync.set({"numBlobs":numBlobsInput.value});
+        }
 });
 numBlobsInput.addEventListener("focusout", event =>{ 
     if (numBlobsInput.value < 1 || isNaN(numBlobsInput.value)) { 
