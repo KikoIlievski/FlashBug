@@ -39,14 +39,14 @@ function setup() {
 	});
 	// getting old value for spectrum toggle or defaulting to false
 	chrome.storage.sync.get("spectrumCycling", result => { 
-		if (result["spectrumCycling"]) { // If tickbox true 
+		if (result["spectrumCycling"] === true) { // If tickbox true 
 			spectrumToggle = true;
 			setAllColours(true);
-			console.log("ticbox true");
-			console.log(spectrumToggle)
-		} else { 
-			spectrumToggle = false;
+		} else if (result["spectrumCycling"] === false){ 
+			console.log("false");
 			setAllColours(); 
+		} else {
+			console.log("unexpected");
 		}
 	});
 	// either getting user custom distance or setting to default upon first time installation
@@ -61,6 +61,7 @@ function setup() {
 	
 }
 function cycle(p, c, n) { 
+	console.log("cycle is running");
 	if (colours[n] >= 1) { 
 		temp = c;
 		c = n; 
@@ -78,6 +79,7 @@ function cycle(p, c, n) {
 function draw() {
 	background(50);
 	loadPixels();
+	console.log(spectrumToggle);
 	if (spectrumToggle && frameCount % 10 == 0) {
 		cycle(prev, curr, next);
 	}; 
@@ -109,6 +111,9 @@ function setAllColours(beginning = false) { 	// either getting old values for co
 		colours["red"] = 0;
 		colours["green"] = 0.75;
 		colours["blue"] = 1;
+		prev = "green";
+		curr = "blue";
+		next = "red";
 		return;
 	}
 	chrome.storage.sync.get("red", result=>{
@@ -147,13 +152,13 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 			distanceCoefficient = storageChange["newValue"];
 		}
 		if (key == "spectrumCycling") { 
-			if (storageChange["newValue"]) {
+			if (storageChange["newValue"] === true ) {
 				spectrumToggle = true;
 				setAllColours(true);
 				curr = "blue";
 				prev = "green";
 				next = "red";
-			} else if (!storageChange["newValue"]) { 
+			} else if (storageChange["newValue"] === false ) { 
 				spectrumToggle = false;
 				setAllColours();
 			}

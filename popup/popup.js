@@ -93,18 +93,6 @@ radiusSlider.slider({
     }
 });
 
-
-//handling changes in the spectrumToggle by user
-spectrumToggle.addEventListener("change", event => { 
-    // if (event.originalEvent) { 
-        if (spectrumToggle.checked) {
-            chrome.storage.sync.set({"spectrumCycling":true});
-        } else { 
-            chrome.storage.sync.set({"spectrumCycling":false});
-        }
-    // }
-});
-
 // initialising the starting value for the numBlobs
 chrome.storage.sync.get("numBlobs", result=>{ 
     if (!result["numBlobs"]){ 
@@ -114,14 +102,28 @@ chrome.storage.sync.get("numBlobs", result=>{
     }
 });
 
+//handling changes in the spectrumToggle by user
+spectrumToggle.addEventListener("change", event => { 
+    // if (event.originalEvent) { 
+        if (spectrumToggle.checked) {
+            chrome.storage.sync.set({"spectrumCycling":true});
+            disableSliders();
+        } else { 
+            chrome.storage.sync.set({"spectrumCycling":false});
+            enableSliders();
+        }
+    // }
+});
 
 // initialising the starting value for spectrum cycling
 chrome.storage.sync.get("spectrumCycling", result => { 
     if (!result["spectrumCycling"]) { 
         chrome.storage.sync.set({"spectrumCycling":false})
         spectrumToggle.checked = false;
+        enableSliders();
     } else if (result["spectrumCycling"]) { 
         spectrumToggle.checked = true;
+        disableSliders();
     }
 });
 
@@ -142,3 +144,15 @@ numBlobsInput.addEventListener("focusout", event =>{
         });
     } 
 });
+
+function disableSliders() { 
+    redSlider.slider("disable");
+    greenSlider.slider("disable");
+    blueSlider.slider("disable");
+}
+
+function enableSliders() { 
+    redSlider.slider("enable");
+    greenSlider.slider("enable");
+    blueSlider.slider("enable");
+}
