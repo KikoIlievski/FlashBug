@@ -108,9 +108,9 @@ function windowResized() {
 
 function setAllColours(beginning = false) { 	// either getting old values for colour, or setting to default upon first time installation
 	if (beginning) { 
-		colours["red"] = 0;
-		colours["green"] = 0.75;
-		colours["blue"] = 1;
+		colours["red"] = Math.random();
+		colours["green"] = Math.random();
+		colours["blue"] = Math.random();
 		prev = "green";
 		curr = "blue";
 		next = "red";
