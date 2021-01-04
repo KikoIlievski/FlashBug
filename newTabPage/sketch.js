@@ -42,12 +42,10 @@ function setup() {
 		if (result["spectrumCycling"] === true) { // If tickbox true 
 			spectrumToggle = true;
 			setAllColours(true);
-		} else if (result["spectrumCycling"] === false){ 
-			console.log("false");
+		} else if (result["spectrumCycling"] === false || result["spectrum"] == undefined){ 
+			// console.log("false");
 			setAllColours(); 
-		} else {
-			console.log("unexpected");
-		}
+		} 
 	});
 	// either getting user custom distance or setting to default upon first time installation
 	chrome.storage.sync.get("coefficient", result=>{ 
@@ -61,7 +59,7 @@ function setup() {
 	
 }
 function cycle(p, c, n) { 
-	console.log("cycle is running");
+	// console.log("cycle is running");
 	if (colours[n] >= 1) { 
 		temp = c;
 		c = n; 
@@ -79,7 +77,7 @@ function cycle(p, c, n) {
 function draw() {
 	background(50);
 	loadPixels();
-	console.log(spectrumToggle);
+	// console.log(spectrumToggle);
 	if (spectrumToggle && frameCount % 10 == 0) {
 		cycle(prev, curr, next);
 	}; 
@@ -164,7 +162,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
 			}
 		}
 		if (key == "numBlobs") { //case num. blobs is changed
-			console.log("Yeet");
+			// console.log("Yeet");
 			let diff = Math.abs(blobs.length - storageChange["newValue"]); 
 			if (diff == 0){
 				break
