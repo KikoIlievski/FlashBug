@@ -1,5 +1,5 @@
 # FlashBug!
-# Description: 
+## Description: 
 This projects is one of my first proper GitHub projects! It's a chrome extension which overrides Chrome's New Tab page with moving customisable 2D isosurfaces.
 ## Inspiration and credit:
 Absolutely massive love to [The Coding Train](https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw) and [Basile Pesin](https://github.com/Vertmo). The original code made using java by The Coding Train can be seen [here](https://thecodingtrain.com/CodingChallenges/028-metaballs.html). The program was translated to Javascript by Basile Pesin using the p5.js library. The code in my extension is an adaptation of the code written by Basile, so I am very grateful to both Basile and The Coding Train for the incredible inspiration and guidance they have given me through their work. 
